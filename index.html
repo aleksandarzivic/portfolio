@@ -896,6 +896,42 @@ footer {
   color: #dc2626; /* red */
 }
 
+	@media (max-width: 768px) {
+  /* Make the pill + phrase sit on one line */
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;   /* center the whole row */
+    gap: 0.5rem;
+    flex-wrap: nowrap;
+  }
+
+  /* TRIAGE · SIMULATE · VALIDATE · TEST */
+  .eyebrow-phrase.bullets {
+    display: flex;
+    flex-wrap: nowrap;         /* keep all categories on one line if possible */
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.45rem;              /* not too much space between words */
+    width: auto;               /* override previous width:100% */
+  }
+
+  .eyebrow-phrase.bullets span {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1.2;
+  }
+
+  .eyebrow-phrase.bullets span + span::before {
+    content: "•";
+    margin: 0 0.35rem;         /* small space around the center dots */
+    font-size: 0.85rem;
+    position: static;          /* no weird vertical offset */
+    top: auto;
+    transform: none !important;
+  }
+}
+
 
 
 
@@ -2256,6 +2292,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
  </body> </html>
+
 
 
 
