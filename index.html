@@ -1717,6 +1717,150 @@ The planner reacted conservatively, triggering a harsh brake before the track di
         height: 40px;
       }
     }
+	/* =========================
+   Mobile layout fixes
+   ========================= */
+
+/* General mobile tweaks */
+@media (max-width: 768px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Make sure all the main 2–3 column grids stack neatly */
+  .hero-grid,
+  .focus-grid,
+  .case-grid,
+  .skills-grid,
+  .experience-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* Hero: put the card below the intro text and tighten spacing */
+  #hero {
+    padding-top: 2.5rem;
+    padding-bottom: 3rem;
+  }
+
+  .hero-grid {
+    row-gap: 1.75rem;
+  }
+
+  .hero-card {
+    order: 2; /* text first, card second */
+  }
+
+  /* Nav: keep things from feeling squished */
+  .site-header-inner {
+    align-items: center;
+  }
+
+  nav[aria-label="Primary"] {
+    right: 1rem;
+    left: 1rem;
+  }
+}
+
+/* Small phones (portrait) */
+@media (max-width: 600px) {
+  /* Buttons go full width so they don't wrap awkwardly */
+  .hero-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Focus cards spacing */
+  #focus-areas .focus-card {
+    padding: 1.1rem 1.1rem 1rem;
+  }
+
+  /* Case studies: avoid extra horizontal squeeze */
+  #case-studies .case-study {
+    padding: 1.2rem 1.1rem 1.1rem;
+  }
+
+  /* Skills & Experience: ensure cards stretch full width */
+  #skills .skills-column,
+  #experience .experience-summary,
+  #experience .experience-item {
+    width: 100%;
+  }
+
+  /* Contact card + resume form: single column, full width */
+  .contact-card {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 1.3rem 1.1rem 1.2rem;
+  }
+
+  .resume-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .resume-form-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .resume-submit-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Visuals section – make slider + thumbs mobile-friendly */
+@media (max-width: 768px) {
+  /* If your visuals main layout uses a flex row, stack it */
+  .visuals-layout,
+  .visuals-main-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Make the main frame full width */
+  #visuals-slider,
+  .visuals-main {
+    width: 100%;
+  }
+
+  /* Thumbnails grid: keep them small and wrap nicely */
+  .visuals-thumbs-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.4rem;
+  }
+
+  .visuals-thumb {
+    max-width: 100%;
+  }
+}
+
+/* Extra small phones */
+@media (max-width: 420px) {
+  .section-header {
+    margin-bottom: 1.7rem;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
+  }
+
+  .hero-title {
+    font-size: 1.7rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
+  }
+}
+
+
+	  
   </style>
 
   <!-- =========================
@@ -2078,3 +2222,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
  </body> </html>
+
