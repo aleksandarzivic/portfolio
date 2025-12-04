@@ -1859,6 +1859,11 @@ The planner reacted conservatively, triggering a harsh brake before the track di
   }
 }
 
+@media (max-width: 600px) {
+  .bullets span + span::before {
+    transform: translateY(2px); /* gently lowers dot on small screens */
+  }
+}
 
 	  
   </style>
@@ -2222,6 +2227,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
  </body> </html>
+
 
 
 
