@@ -1,0 +1,2079 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8" /> <title>Aleksandar Zivic | Software Quality & Triage Specialist</title> <meta name="viewport" content="width=device-width, initial-scale=1" /> <meta name="description" content="Portfolio of Aleksandar Zivic, Software Quality & Triage Specialist for autonomous systems, focused on event triage, simulation reproduction, and testing." /> 
+
+
+<style> /* ========================= Base & Design Tokens ========================= */ :root { --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, -system-ui, sans-serif; --color-bg: #f5f7fa; --color-surface: #ffffff; --color-surface-alt: #f0f4fb; --color-border: #dde3ee; --color-text: #1c2230; --color-muted: #6c7485; --color-accent: #1f8ac0; --color-accent-soft: rgba(31, 138, 192, 0.08); --shadow-soft: 0 10px 25px rgba(15, 23, 42, 0.08); --radius-lg: 18px; --radius-pill: 999px; --max-width: 1120px; --nav-height: 72px; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:hover,
+a:focus-visible {
+  text-decoration: underline;
+}
+
+main {
+  display: block;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* =========================
+   Skip Link
+   ========================= */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 16px;
+  padding: 0.5rem 0.75rem;
+  background: var(--color-accent);
+  color: #fff;
+  border-radius: 4px;
+  z-index: 1000;
+  font-size: 0.875rem;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+/* =========================
+   Header & Navigation
+   ========================= */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  backdrop-filter: blur(16px);
+  background: rgba(245, 247, 250, 0.9);
+  border-bottom: 1px solid rgba(221, 227, 238, 0.7);
+}
+
+.site-header-inner {
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-size: 1.05rem;
+}
+
+.logo-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 40%;
+  background: radial-gradient(circle at 30% 30%, #7fd3ff, #1f8ac0);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.2);
+}
+
+.logo-subtitle {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--color-muted);
+}
+
+nav[aria-label="Primary"] {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.25rem;
+  font-size: 0.95rem;
+}
+
+.nav-links a {
+  color: var(--color-muted);
+  font-weight: 500;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 0.1rem;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-accent);
+  border-radius: 999px;
+  transition: width 0.2s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after {
+  width: 100%;
+}
+
+.nav-cta {
+  font-size: 0.9rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: #ffffff;
+  color: var(--color-text);
+  font-weight: 500;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.nav-cta span {
+  font-size: 1rem;
+}
+
+.nav-cta:hover,
+.nav-cta:focus-visible {
+  border-color: var(--color-accent);
+  text-decoration: none;
+}
+
+/* Mobile nav toggle */
+.nav-toggle {
+  display: none;
+}
+
+.nav-toggle-label {
+  display: none;
+  cursor: pointer;
+  padding: 0.35rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: #ffffff;
+}
+
+.nav-toggle-label span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: 999px;
+  position: relative;
+}
+
+.nav-toggle-label span::before,
+.nav-toggle-label span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 20px;
+  height: 2px;
+  background: var(--color-text);
+  border-radius: 999px;
+}
+
+.nav-toggle-label span::before {
+  top: -6px;
+}
+
+.nav-toggle-label span::after {
+  top: 6px;
+}
+
+/* =========================
+   Hero Section
+   ========================= */
+section {
+  padding: 4rem 0;
+}
+
+#hero {
+  padding-top: 3.5rem;
+  padding-bottom: 4.5rem;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 3.2fr) minmax(0, 2.3fr);
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.eyebrow-phrase {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;        /* space between words + dots */
+  font-size: 0.76rem; /* same as existing eyebrow size */
+}
+
+.eyebrow-phrase span + span::before {
+  content: "·";
+  margin-right: 0.2rem; /* little breathing room after dot */
+}
+
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--color-muted);
+  margin-bottom: 0.75rem;
+}
+
+.eyebrow-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-accent);
+}
+
+.hero-title {
+  font-size: clamp(2.1rem, 3vw, 2.6rem);
+  letter-spacing: 0.01em;
+  margin: 0 0 0.75rem;
+}
+
+.hero-subtitle {
+  font-size: 1rem;
+  color: var(--color-muted);
+  max-width: 38rem;
+  margin-bottom: 1.75rem;
+}
+
+.hero-subtitle strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.hero-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--color-accent);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  border-radius: var(--radius-pill);
+  padding: 0.8rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.14s ease, box-shadow 0.14s ease,
+    background-color 0.14s ease, border-color 0.14s ease;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: #ffffff;
+  box-shadow: var(--shadow-soft);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.18);
+  text-decoration: none;
+}
+
+.btn-secondary {
+  background: #ffffff;
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+  border-color: var(--color-accent);
+  text-decoration: none;
+}
+
+.btn-icon {
+  font-size: 1.1rem;
+}
+
+.hero-card {
+  background: var(--color-surface);
+  padding: 1.5rem 1.6rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--color-border);
+}
+
+.hero-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.hero-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.hero-card-pill {
+  font-size: 0.78rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.hero-card-body {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  margin-bottom: 1.1rem;
+}
+
+.hero-card-list {
+  display: grid;
+  gap: 0.55rem;
+  font-size: 0.86rem;
+  color: var(--color-muted);
+  margin: 0 0 0.4rem;
+  padding: 0;
+  list-style: none;
+}
+
+.hero-card-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.hero-card-label {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.hero-card-value {
+  text-align: right;
+}
+
+/* =========================
+   Section Headings
+   ========================= */
+.section-header {
+  margin-bottom: 2.25rem;
+  max-width: 40rem;
+}
+
+.section-kicker {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--color-muted);
+  margin-bottom: 0.35rem;
+}
+
+.section-title {
+  font-size: 1.6rem;
+  margin: 0 0 0.35rem;
+}
+
+.section-description {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--color-muted);
+}
+
+/* =========================
+   Focus Areas
+   ========================= */
+.focus-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.4rem;
+}
+
+.focus-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem 1.4rem 1.3rem;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.focus-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.focus-title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.focus-tag {
+  font-size: 0.75rem;
+  padding: 0.18rem 0.6rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.focus-card ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.focus-card li + li {
+  margin-top: 0.25rem;
+}
+
+/* =========================
+   Case Studies
+   ========================= */
+.case-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.case-study {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1.4rem 1.4rem;
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.case-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.case-title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.case-tag {
+  font-size: 0.78rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.case-role {
+  font-size: 0.88rem;
+  color: var(--color-muted);
+  margin-bottom: 0.35rem;
+}
+
+.case-label {
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.case-text {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  margin: 0 0 0.35rem;
+}
+
+.case-approach-list {
+  margin: 0.2rem 0 0.4rem;
+  padding-left: 1.1rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.case-approach-list li + li {
+  margin-top: 0.2rem;
+}
+
+/* =========================
+   Skills
+   ========================= */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.skills-column {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem 1.4rem 1.2rem;
+  border: 1px solid var(--color-border);
+}
+
+.skills-title {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.skills-subtitle {
+  margin: 0 0 0.9rem;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+
+.chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.chip {
+  font-size: 0.82rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: #ffffff;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+/* =========================
+   Experience
+   ========================= */
+.experience-body {
+  display: grid;
+  grid-template-columns: minmax(0, 2.7fr) minmax(0, 2.1fr);
+  gap: 1.8rem;
+  align-items: start;
+}
+
+.experience-body {
+  margin-top: 1rem;  
+}
+
+.experience-body {
+  margin-top: 1rem;
+}
+
+.experience-summary p {
+  margin: 0 0 0.45rem;
+}
+
+.experience-summary p:last-child {
+  margin-bottom: 0;
+}
+
+.experience-summary {
+  font-size: 0.95rem;
+  color: var(--color-muted);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem 1.4rem 1.2rem;
+  border: 1px solid var(--color-border);
+}
+
+.experience-summary p {
+  margin: 0.45;
+}
+
+.experience-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.experience-item {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--color-border);
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.experience-item strong {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* =========================
+   Contact
+   ========================= */
+.contact-card {
+  background: linear-gradient(
+      120deg,
+      rgba(31, 138, 192, 0.03),
+      rgba(255, 255, 255, 0.9)
+    ),
+    var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 1.8rem 1.6rem 1.6rem;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  display: grid;
+  grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.4fr);
+  gap: 1.6rem;
+  align-items: center;
+}
+
+.contact-text p {
+  margin: 0 0 0.7rem;
+  font-size: 0.96rem;
+  color: var(--color-muted);
+}
+
+.contact-highlight {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.contact-link-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--color-muted);
+}
+
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 500;
+}
+
+.contact-link-icon {
+  font-size: 1rem;
+}
+
+/* =========================
+   Footer
+   ========================= */
+footer {
+  padding: 2.5rem 0 2rem;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  border-top: 1px solid var(--color-border);
+  padding-top: 1.2rem;
+}
+
+.footer-inner span {
+  opacity: 0.9;
+}
+
+/* =========================
+   Responsive
+   ========================= */
+@media (max-width: 960px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero-card {
+    order: -1;
+  }
+
+  .case-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .skills-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .experience-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contact-card {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: 3rem 0;
+  }
+
+  #hero {
+    padding-top: 3rem;
+  }
+
+  .site-header-inner {
+    height: auto;
+    padding: 0.6rem 0;
+  }
+
+  nav[aria-label="Primary"] {
+    position: absolute;
+    inset: calc(var(--nav-height) - 10px) 1.25rem auto;
+    background: #ffffff;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.9rem 1rem;
+    border-radius: 14px;
+    box-shadow: 0 16px 38px rgba(15, 23, 42, 0.22);
+    border: 1px solid var(--color-border);
+    transform-origin: top right;
+    transform: scale(0.97);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.16s ease, transform 0.16s ease;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .nav-cta {
+    margin-top: 0.4rem;
+  }
+
+  .nav-toggle {
+    display: none;
+  }
+
+  .nav-toggle-label {
+    display: inline-flex;
+  }
+
+  /* Use checkbox hack via :checked selector on mobile */
+  #nav-toggle:checked + .nav-toggle-label + nav[aria-label="Primary"] {
+    opacity: 1;
+    pointer-events: auto;
+    transform: scale(1);
+  }
+
+  .hero-actions {
+    flex-wrap: wrap;
+  }
+
+  .focus-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.9rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .hero-card {
+    padding: 1.2rem 1.2rem;
+  }
+
+  .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .contact-card {
+    padding: 1.4rem 1.3rem;
+  }
+}
+
+.resume-status {
+  margin-top: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  min-height: 1em; /* keeps space even when empty */
+}
+
+.resume-status--success {
+  color: #16a34a; /* green */
+}
+
+.resume-status--error {
+  color: #dc2626; /* red */
+}
+
+
+
+
+</style> </head> <body> <a href="#main" class="skip-link">Skip to main content</a> <header class="site-header"> <div class="container site-header-inner"> <div class="logo" aria-label="Home"> <div class="logo-mark">AZ</div> <div> <span>Aleksandar Zivic</span> <span class="logo-subtitle">Software Quality &amp; Triage</span> </div> </div>
+  <!-- Mobile nav toggle uses purely CSS (checkbox + label) -->
+  <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" />
+  <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle navigation">
+    <span></span>
+  </label>
+
+<nav aria-label="Primary">
+  <div class="nav-links">
+    <a href="#hero">Intro</a>
+    <a href="#focus-areas">About</a>
+    <a href="#case-studies">Case Studies</a>
+    <button type="button" id="resume-nav-btn" class="nav-link-button">Resume</button>
+  </div>
+  <a href="#contact" class="nav-cta">
+    Contact
+    <span>→</span>
+  </a>
+</nav></div>
+
+</header> <main id="main"> <!-- ========================= HERO ========================= --> 
+
+<section id="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">
+  <span class="eyebrow-pill" aria-hidden="true"></span>
+
+  <span class="eyebrow-phrase bullets">
+    <span>TRIAGE</span>
+    <span>SIMULATE</span>
+    <span>VALIDATE</span>
+    <span>TEST</span>
+  </span>
+</div>
+
+	<h1 class="hero-title"> Software Quality &amp; Triage Specialist for Autonomous Systems </h1> <p class="hero-subtitle"> </p>
+      <div class="hero-meta">
+        <span><span class="dot" aria-hidden="true"></span> Behavior Analysis &amp; Event Triage</span>
+        <span><span class="dot" aria-hidden="true"></span> Simulation reproduction &amp; scenario design</span>
+        <span><span class="dot" aria-hidden="true"></span> Based in San Francisco, CA</span>
+      </div>
+
+      <div class="hero-actions">
+  <a href="#case-studies" class="btn btn-primary">
+    <span class="btn-icon">▸</span>
+    View Case Studies
+  </a>
+  <button id="resume-hero-btn" class="btn btn-secondary" aria-label="Resume">
+    <span class="btn-icon">⬇</span>
+    Resume
+  </button>
+</div>
+    </div>
+
+    <aside class="hero-card" aria-label="Profile summary">
+      <div class="hero-card-header">
+        <h2 class="hero-card-title">Profile at a glance</h2>
+        <div class="hero-card-pill">AV / Robotics QA</div>
+      </div>
+      <div class="hero-card-body">
+      I turn real-world on-road data into clear engineering tasks. My job is to figure out why the vehicle behaved the way it did. I investigate safety-critical events, reproduce them in simulation, and hand engineers the clean, precise data they need to improve the system
+      </div>
+      <ul class="hero-card-list">
+        <li>
+          <span class="hero-card-label">Specialty</span>
+          <span class="hero-card-value">Event triage, reproduction, testing</span>
+        </li>
+        <li>
+          <span class="hero-card-label">Domains</span>
+          <span class="hero-card-value">Autonomous driving (L3, L4) &amp; robotics</span>
+        </li>
+        <li>
+          <span class="hero-card-label">Strengths</span>
+          <span class="hero-card-value">Pattern recognition, clear communication</span>
+        </li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- =========================
+     FOCUS AREAS
+     ========================= -->
+<section id="focus-areas">
+  <div class="container">
+    <header class="section-header">
+      <div class="section-kicker">Focus areas</div>
+      <h2 class="section-title">Where I create the most impact</h2>
+      <p class="section-description"></p>
+    </header>
+
+    <div class="focus-grid">
+
+      <!-- TRIAGE ANALYSIS -->
+      <article class="focus-card">
+        <div class="focus-card-header">
+          <h3 class="focus-title">Triage Analysis</h3>
+          <span class="focus-tag">Events → Insights</span>
+        </div>
+
+        <p class="case-text">
+          I analyze how the vehicle responded to its environment, what inputs influenced its decisions,
+          and whether the outcome aligns with expected behavior. When something feels off—hesitation,
+          unexpected maneuvers, unclear intent—I break down the scene and surface the key signals so the
+          right teams can take action quickly.
+        </p>
+
+        <p class="case-text case-label">What I usually do:</p>
+        <ul class="case-approach-list">
+          <li>Compare expected behavior with what the vehicle actually did, frame by frame</li>
+          <li>Highlight the moments where perception, prediction, or planning influenced the outcome</li>
+          <li>Escalate triage notes and critical events to the appropriate teams</li>
+        </ul>
+      </article>
+
+      <!-- SIMULATION REPRODUCTION -->
+      <article class="focus-card">
+        <div class="focus-card-header">
+          <h3 class="focus-title">Simulation Reproduction</h3>
+          <span class="focus-tag">Logs → Scenarios</span>
+        </div>
+
+        <p class="case-text">
+          To get a full picture of the vehicle’s behavior and intent—without affecting comfort or safety
+          in the real world—I recreate key situations in simulation. This allows engineers to experiment,
+          test hypotheses, and compare software performance across versions.
+        </p>
+
+        <p class="case-text case-label">Typical work:</p>
+        <ul class="case-approach-list">
+          <li>Run edge-case scenarios to observe how the system responds under different conditions</li>
+          <li>Build scenario variants to isolate and test specific perception, prediction, or planning behaviors</li>
+          <li>Share findings and escalate unusual or unexpected results to leads and engineering teams</li>
+        </ul>
+      </article>
+
+      <!-- TESTING & SCENARIO VALIDATION -->
+      <article class="focus-card">
+        <div class="focus-card-header">
+          <h3 class="focus-title">Testing &amp; Scenario Validation</h3>
+          <span class="focus-tag">Scenarios → Coverage</span>
+        </div>
+
+        <p class="case-text">
+          From system-validation runs to edge-case testing on closed tracks and real-world streets,
+          I focus on completing tests thoroughly and safely. I look for improvements or regressions
+          in behavior and provide clear, actionable notes to the engineering team.
+        </p>
+
+        <p class="case-text case-label">Typical work:</p>
+        <ul class="case-approach-list">
+          <li>Execute structured tests focused on known risks and unusual behaviors</li>
+          <li>Trace how software changes affect on-road performance or comfort</li>
+          <li>Coordinate with engineers and operators to refine what needs deeper investigation next</li>
+        </ul>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+
+
+	<!-- =========================
+     EXPERIENCE
+     ========================= -->
+<section id="experience">
+  <div class="container">
+    <header class="section-header">
+      <div class="section-kicker">Experience</div>
+      <h2 class="section-title">Autonomous vehicle testing &amp; triage background</h2>
+      <p class="section-description">
+        I’ve worked across AV testing, field operations, and software quality—mapped out timelines of challenging instances, supporting simulation teams, and helping connect real-world behavior to engineering decisions in multiple cities.
+      </p>
+    </header>
+
+    <div class="experience-body">
+      <div class="experience-summary">
+        <p>
+        
+	  
+	<p> 
+	I operate at the intersection of real-world dynamic environments and engineering logic. Over the past few years, I’ve embedded myself in autonomous vehicle programs, acting as the 	translator between what happens on the road and what needs to happen in the codebase. 
+	</p>
+
+	<p> 
+	My specialty isn't just watching the vehicle's trajectory, it's actually understanding the why behind the wheel. I break down complex timeline data—analyzing perception 	tracks, prediction outputs, and planner logic—to pinpoint exactly where the software succeeded or struggled. 
+	</p>
+	
+	<p> By translating unpredictable on-road interactions into clean, structured simulation scenarios, I help engineering teams validate hypotheses and test fixes without the 	risks of public road testing. Ultimately, I build the feedback loops and documentation that turn raw data into a safer, smoother ride. 
+	</p>	
+
+        </p>
+      </div>
+
+</section>
+
+
+
+
+<!-- =========================
+     CASE STUDIES
+     ========================= -->
+<section id="case-studies">
+  <div class="container">
+    <header class="section-header">
+      <div class="section-kicker">Portfolio</div>
+      <h2 class="section-title">Selected case studies</h2>
+      <p class="section-description">
+        These examples are abstracted and they only illustrate
+        how I approach event triage, simulation, testing, and process improvements.
+      </p>
+    </header>
+
+    <div class="case-grid">
+      <!-- Case Study 1: Triage Analysis -->
+      <article class="case-study">
+        <header class="case-meta">
+          <h3 class="case-title">Investigating the trigger behind a hard brake when traffic conditions appeared clear</h3>
+          <span class="case-tag">Triage Analysis</span>
+        </header>
+        <div class="case-role">Role: Triage &amp; Event Analysis</div>
+
+        <p class="case-text">
+          <span class="case-label">Event Summary:</span>
+          The ego performed a sudden, hard brake even though no obvious obstacle was present in the environment. After the slowdown, it continued along its planned path. <!-- check align solution -->
+        </p>
+
+        <p class="case-text case-label">My Approach:</p>
+        <ul class="case-approach-list">
+          <li>Stepped through the event timeline to check when the braking command was triggered and what the ego “believed” was ahead</li>
+          <li>Checked nearby actors’ predicted trajectories to rule out approaching cross-traffic or merging vehicles</li>
+          <li>Looked for any momentary false positives or flickering detections in the forward field-of-view</li>
+          <li>I also looked at how the braking felt from a comfort and safety perspective, since harsh deceleration can indicate the planner reacted too aggressively</li>
+        </ul>
+
+        <p class="case-text">
+          <span class="case-label">Outcome:</span>
+          A short-lived false positive obstacle (lasting ~2 seconds) was detected ahead of the ego.
+The planner reacted conservatively, triggering a harsh brake before the track disappeared.
+        </p>
+      </article>
+
+      <!-- Case Study 2: Triage analysis -->
+      <article class="case-study">
+        <header class="case-meta">
+          <h3 class="case-title">Clarifying the reason ego did not proceed on its path</h3>
+          <span class="case-tag">Triage Analysis</span>
+        </header>
+        <div class="case-role">Role: Triage & Event Analysis</div>
+
+        <p class="case-text">
+          <span class="case-label">Event summary:</span>
+          The ego stopped at a traffic-light intersection during nighttime and didn’t proceed even though the light was green
+        </p>
+
+        <p class="case-text case-label">My Approach:</p>
+        <ul class="case-approach-list">
+          <li>First step in these situations is to check the surroundings, location context, and any possible false positives that might influence behavior</li>
+          <li>Traced the comfort/safety signals and camera feeds to see what ego “thought” was happening</li>
+          <li>After stepping through the logs, I noticed an emergency vehicle crossing from the left with roof lights on, but no siren, and was waiting at its own red signal</li>
+          <li>Reviewing perception outputs, the yellow top lights were interpreted as active emergency lighting. Because it was nighttime, the reflections and intensity made the vehicle appear as if it was actively responding. Ego held position instead of continuing through the green signal</li>
+        </ul>
+
+        <p class="case-text">
+          <span class="case-label">Outcome:</span>
+          I documented the finding and recommended improvement: differentiating between true active emergency patterns and steady or low-intensity flashing lights, especially in low-light scenes where reflections can distort the signal
+        </p>
+      </article>
+
+      <!-- Case Study 3: Testing & Scenario Validation -->
+      <article class="case-study">
+        <header class="case-meta">
+          <h3 class="case-title">Ensuring clear system behavior in construction-zones and dynamic pedestrian environments</h3>
+          <span class="case-tag">Testing &amp; Scenario Validation</span>
+        </header>
+        <div class="case-role">Role: Test Planning &amp; Execution</div>
+
+        <p class="case-text">
+          <span class="case-label">Challenge:</span>
+          Ensure consistent and reliable behavior across construction-zone conditions and pedestrian flows in a dynamic environment.
+        </p>
+
+        <p class="case-text case-label">My Approach:</p>
+        <ul class="case-approach-list">
+          <li>Performed repeated test runs across varied urban zones, including closed-track simulations of construction-zone scenarios</li>
+          <li>Checked that test plans meet all current requirements, and update the plan when the environment or safety protocols change</li>
+          <li>Identified key factors that influenced potential misbehavior</li>
+	<li>Coordinated with operators to get structured feedback after each pass</li>
+        </ul>
+
+        <p class="case-text">
+          <span class="case-label">Outcome:</span>
+         After testing, I go through the logs and simulation replays, triage every misbehavior, and summarize which triggers influenced ego’s path inside construction zones. I prioritize safety-critical cases, especially ones that could affect future behavior, and I label perception issues related to construction vehicles
+        </p>
+      </article>
+
+      <!-- Case Study 4: Process Improvements -->
+      <article class="case-study">
+        <header class="case-meta">
+          <h3 class="case-title">Standardizing the triage process to improve future analysis</h3>
+          <span class="case-tag">Process Improvements</span>
+        </header>
+        <div class="case-role">Role: Process Design &amp; Documentation</div>
+
+        <p class="case-text">
+          <span class="case-label">Challenge:</span>
+         Identify the correct cause of autonomous vehicle misbehavior and ensure consistent, actionable triage reports
+        </p>
+
+        <p class="case-text case-label">My Approach:</p>
+        <ul class="case-approach-list">
+          <li>Looked at existing triage examples to understand which details and signals engineers relied on most</li>
+          <li>Drafted a structured template with clear categories to evaluate depending on the observed behavior</li>
+          <li>Created a standardized format including context, key signals, and recommended next steps</li>
+          <li>Documented guidelines and examples in internal knowledge spaces to support cross-team alignment</li>
+        </ul>
+
+        <p class="case-text">
+          <span class="case-label">Outcome:</span>
+          Drastically reduced back-and-forth clarification loops. The team finally had a consistent reporting standard, which meant clearer notes and faster fixes.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================
+     VISUALS (SLIDESHOW)
+     ========================= -->
+<section id="visuals">
+  <div class="container">
+    <header class="section-header">
+      <div class="section-kicker">Visuals</div>
+      <h2 class="section-title">Autonomous-Driving Scenario Diagrams</h2>
+      <p class="section-description">
+       These examples are abstracted and they only illustrate how I approach event triage, simulation, testing, and process improvements
+      </p>
+    </header>
+
+    <div class="visuals-slider" id="visuals-slider" data-autoplay-ms="8000">
+      <!-- progress bar -->
+      <div class="visuals-progress">
+        <div class="visuals-progress-inner" id="visuals-progress-inner"></div>
+      </div>
+
+      <!-- slide selectors -->
+      <input type="radio" name="visuals-slides" id="visuals-1" checked>
+      <input type="radio" name="visuals-slides" id="visuals-2">
+      <input type="radio" name="visuals-slides" id="visuals-3">
+      <input type="radio" name="visuals-slides" id="visuals-4">
+      <input type="radio" name="visuals-slides" id="visuals-5">
+      <input type="radio" name="visuals-slides" id="visuals-6">
+
+      <!-- slide window -->
+      <div class="visuals-window">
+        <div class="visuals-slide slide-1">
+          <img src="images/img1.png" alt="Visual 1">
+        </div>
+
+        <div class="visuals-slide slide-2">
+          <img src="images/img2.png" alt="Visual 2">
+        </div>
+
+        <div class="visuals-slide slide-3">
+          <img src="images/img3.png" alt="Visual 3">
+        </div>
+
+        <div class="visuals-slide slide-4">
+          <img src="images/case01a.png" alt="Visual 4">
+        </div>
+
+        <div class="visuals-slide slide-5">
+          <img src="images/case01b.png" alt="Visual 5">
+        </div>
+
+        <div class="visuals-slide slide-6">
+          <img src="images/case01c.png" alt="Visual 6">
+        </div>
+      </div>
+
+      <!-- arrow controls -->
+      <div class="visuals-controls">
+        <label class="btn-prev prev-1" for="visuals-6">‹</label>
+        <label class="btn-next next-1" for="visuals-2">›</label>
+
+        <label class="btn-prev prev-2" for="visuals-1">‹</label>
+        <label class="btn-next next-2" for="visuals-3">›</label>
+
+        <label class="btn-prev prev-3" for="visuals-2">‹</label>
+        <label class="btn-next next-3" for="visuals-4">›</label>
+
+        <label class="btn-prev prev-4" for="visuals-3">‹</label>
+        <label class="btn-next next-4" for="visuals-5">›</label>
+
+        <label class="btn-prev prev-5" for="visuals-4">‹</label>
+        <label class="btn-next next-5" for="visuals-6">›</label>
+
+        <label class="btn-prev prev-6" for="visuals-5">‹</label>
+        <label class="btn-next next-6" for="visuals-1">›</label>
+      </div>
+
+      <!-- thumbnails toggle -->
+      <button class="visuals-thumbs-toggle" type="button" id="visuals-thumbs-toggle">
+        <span class="thumbs-toggle-label">Thumbnails</span>
+        <span class="thumbs-toggle-icon">▾</span>
+      </button>
+
+      <!-- thumbnails -->
+      <div class="visuals-thumbs" id="visuals-thumbs">
+        <label for="visuals-1"><img src="images/img1.png" alt="Thumbnail 1"></label>
+        <label for="visuals-2"><img src="images/img2.png" alt="Thumbnail 2"></label>
+        <label for="visuals-3"><img src="images/img3.png" alt="Thumbnail 3"></label>
+        <label for="visuals-4"><img src="images/case01a.png" alt="Thumbnail 4"></label>
+        <label for="visuals-5"><img src="images/case01b.png" alt="Thumbnail 5"></label>
+        <label for="visuals-6"><img src="images/case01c.png" alt="Thumbnail 6"></label>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================
+       VISUALS SLIDER CSS
+       ========================= -->
+  <style>
+
+.eyebrow-phrase.bullets {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;       /* space between items */
+}
+
+.eyebrow-phrase.bullets span + span::before {
+  content: "•";
+  display: inline-block;
+  margin: 0 0.8rem;  /* controls spacing left/right of the dot */
+  transform: translateY(-1px); /* perfectly centers the dot vertically */
+  font-size: 0.85rem;
+}
+
+
+	.nav-link-button {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--color-muted);
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 0.1rem;
+  cursor: pointer;
+}
+
+.nav-link-button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-accent);
+  border-radius: 999px;
+  transition: width 0.2s ease;
+}
+
+.nav-link-button:hover::after,
+.nav-link-button:focus-visible::after {
+  width: 100%;
+}
+    .visuals-slider {
+      background: var(--color-surface);
+      border-radius: var(--radius-lg);
+      padding: 1.4rem 1.4rem 1.6rem;
+      border: 1px solid var(--color-border);
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .visuals-slider input[type="radio"] {
+      display: none;
+    }
+
+    /* Progress bar */
+    .visuals-progress {
+      position: absolute;
+      top: 0.8rem;
+      left: 1.2rem;
+      right: 1.2rem;
+      height: 4px;
+      border-radius: 999px;
+      background: rgba(108, 116, 133, 0.25);
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .visuals-progress-inner {
+      height: 100%;
+      width: 0%;
+      border-radius: inherit;
+      background: var(--color-accent);
+      transform-origin: left;
+    }
+
+    .visuals-progress-inner.is-animating {
+  animation-name: visuals-progress-fill;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+    @keyframes visuals-progress-fill {
+      from { width: 0%; }
+      to { width: 100%; }
+    }
+
+    .visuals-window {
+      position: relative;
+      overflow: hidden;
+      border-radius: 14px;
+      aspect-ratio: 16 / 9;
+      background: #e5e9f2;
+      margin-top: 1.2rem;
+    }
+
+    .visuals-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    .visuals-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 14px;
+      display: block;
+    }
+
+    /* ACTIVE SLIDE */
+    #visuals-1:checked ~ .visuals-window .slide-1,
+    #visuals-2:checked ~ .visuals-window .slide-2,
+    #visuals-3:checked ~ .visuals-window .slide-3,
+    #visuals-4:checked ~ .visuals-window .slide-4,
+    #visuals-5:checked ~ .visuals-window .slide-5,
+    #visuals-6:checked ~ .visuals-window .slide-6 {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ARROWS */
+    .visuals-controls {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      pointer-events: none;
+      padding: 0 0.4rem;
+      z-index: 3;
+    }
+
+    .visuals-controls .btn-prev,
+    .visuals-controls .btn-next {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--color-border);
+      background: rgba(255, 255, 255, 0.95);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      cursor: pointer;
+      pointer-events: auto;
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.15);
+      color: var(--color-text);
+    }
+
+    .visuals-controls .btn-prev:hover,
+    .visuals-controls .btn-next:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.25);
+    }
+
+    #visuals-1:checked ~ .visuals-controls .prev-1,
+    #visuals-1:checked ~ .visuals-controls .next-1,
+    #visuals-2:checked ~ .visuals-controls .prev-2,
+    #visuals-2:checked ~ .visuals-controls .next-2,
+    #visuals-3:checked ~ .visuals-controls .prev-3,
+    #visuals-3:checked ~ .visuals-controls .next-3,
+    #visuals-4:checked ~ .visuals-controls .prev-4,
+    #visuals-4:checked ~ .visuals-controls .next-4,
+    #visuals-5:checked ~ .visuals-controls .prev-5,
+    #visuals-5:checked ~ .visuals-controls .next-5,
+    #visuals-6:checked ~ .visuals-controls .prev-6,
+    #visuals-6:checked ~ .visuals-controls .next-6 {
+      display: flex;
+    }
+
+    /* Thumbnails toggle */
+    .visuals-thumbs-toggle {
+      margin: 0.8rem auto 0.2rem auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      background: #ffffff;
+      border-radius: 999px;
+      border: 1px solid var(--color-border);
+      padding: 0.25rem 0.75rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      color: var(--color-muted);
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.06);
+    }
+
+    .visuals-thumbs-toggle:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+
+    .thumbs-toggle-icon {
+      font-size: 0.9rem;
+      transition: transform 0.18s ease;
+    }
+
+    .visuals-slider.thumbs-collapsed .thumbs-toggle-icon {
+      transform: rotate(-90deg);
+    }
+
+    /* THUMBNAILS */
+    .visuals-thumbs {
+      margin-top: 0.4rem;
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      max-height: 100px;
+      opacity: 1;
+      transform: translateY(0);
+      transition: max-height 0.25s ease, opacity 0.25s ease,
+        transform 0.25s ease;
+      overflow: hidden;
+    }
+
+    .visuals-thumbs label {
+      cursor: pointer;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid transparent;
+      transition: 0.18s ease;
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.12);
+    }
+
+    .visuals-thumbs label img {
+      width: 80px;
+      height: 50px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .visuals-thumbs label:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.2);
+    }
+
+    /* Highlight active thumbnail */
+    #visuals-1:checked ~ .visuals-thumbs label:nth-child(1),
+    #visuals-2:checked ~ .visuals-thumbs label:nth-child(2),
+    #visuals-3:checked ~ .visuals-thumbs label:nth-child(3),
+    #visuals-4:checked ~ .visuals-thumbs label:nth-child(4),
+    #visuals-5:checked ~ .visuals-thumbs label:nth-child(5),
+    #visuals-6:checked ~ .visuals-thumbs label:nth-child(6) {
+      border-color: var(--color-accent);
+    }
+
+    /* Collapsed thumbnails state */
+    .visuals-slider.thumbs-collapsed .visuals-thumbs {
+      max-height: 0;
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+
+    /* =========================
+   Resume Modal white
+   ========================= */
+.resume-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: none;
+}
+
+.resume-modal.is-open {
+  display: block;
+}
+
+.resume-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.35);
+  backdrop-filter: blur(4px);
+}
+
+.resume-modal-content {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(480px, 100% - 2.4rem);
+  background: #ffffff;
+  border-radius: 18px;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.25);
+  padding: 1.6rem 1.7rem 1.4rem;
+}
+
+.resume-modal h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1.3rem;
+}
+
+.resume-modal p {
+  margin: 0 0 0.8rem;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.resume-modal-note {
+  margin-top: 0.7rem;
+  font-size: 0.78rem;
+  color: var(--color-muted);
+}
+
+.resume-modal-close {
+  position: absolute;
+  right: 0.9rem;
+  top: 0.8rem;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: #ffffff;
+  color: var(--color-text);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.resume-modal-close:hover,
+.resume-modal-close:focus-visible {
+  border-color: var(--color-accent);
+}
+
+.resume-form-grid {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 0.4rem;
+}
+
+.resume-form-grid label {
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 0.25rem;
+  color: var(--color-muted);
+}
+
+.resume-form-grid input,
+.resume-form-grid textarea {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--color-border);
+  background: #f9fbff;
+  padding: 0.45rem 0.65rem;
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.9rem;
+}
+
+.resume-form-grid textarea {
+  resize: vertical;
+  min-height: 70px;
+}
+
+.resume-submit-row {
+  margin-top: 0.2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.resume-submit-row button {
+  border-radius: var(--radius-pill);
+  padding: 0.45rem 1rem;
+  font-size: 0.86rem;
+  border: 1px solid var(--color-accent);
+  background: var(--color-accent);
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.18);
+}
+
+.resume-submit-row button:hover,
+.resume-submit-row button:focus-visible {
+  box-shadow: 0 16px 30px rgba(15, 23, 42, 0.25);
+}
+
+
+	@media (max-width: 768px) {
+      .visuals-slider {
+        padding: 1.2rem 1.1rem 1.4rem;
+      }
+
+      .visuals-thumbs label img {
+        width: 64px;
+        height: 40px;
+      }
+    }
+  </style>
+
+  <!-- =========================
+       AUTOPLAY + KEYBOARD + SWIPE JS
+       ========================= -->
+  
+</section>
+
+
+	<section id="skills">
+  <div class="container">
+    <header class="section-header">
+      <div class="section-kicker">Skills</div>
+      <h2 class="section-title">Technical and interpersonal strengths</h2>
+      <p class="section-description">
+      </p>
+    </header>
+
+    <div class="skills-grid">
+      <article class="skills-column">
+        <h3 class="skills-title">Technical skills</h3>
+        <p class="skills-subtitle">
+          Tools and methods I rely on to understand, reproduce, and validate behavior
+        </p>
+        <div class="chip-list" aria-label="Technical skills">
+          <span class="chip">Event triage &amp; event review</span>
+          <span class="chip">Log review &amp; annotation</span>
+          <span class="chip">Scenario reproduction</span>
+	<span class="chip">CANalyzer</span>
+          <span class="chip">Simulation test design</span>
+	<span class="chip">OXTS</span>
+          <span class="chip">Python</span>
+          <span class="chip">Issue tracking (Jira-style systems)</span>
+          <span class="chip">Code &amp; change tracking (Git-style systems)</span>
+          <span class="chip">Linux</span>
+          <span class="chip">AV stack fundamentals (perception, prediction, planning)</span>
+          <span class="chip">Adobe Creative Cloud</span>
+        </div>
+      </article>
+
+      <article class="skills-column">
+        <h3 class="skills-title">Soft skills</h3>
+        <p class="skills-subtitle">
+          How I work with people and structure information in safety-critical systems.
+        </p>
+        <div class="chip-list" aria-label="Soft skills">
+          <span class="chip">Pattern recognition</span>
+          <span class="chip">Attention to detail</span>
+          <span class="chip">Clear, structured documentation</span>
+          <span class="chip">Cross-team communication</span>
+          <span class="chip">Stakeholder-aware prioritization</span>
+          <span class="chip">Ownership &amp; follow-through</span>
+          <span class="chip">Learning mindset</span>
+          <span class="chip">Comfort with ambiguity</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+
+
+     <!-- experience addition <ul class="experience-list" aria-label="Experience highlights">
+        <li class="experience-item">
+          <strong>Investigated safety-critical and high-priority events</strong> by
+          reviewing logs, annotating key frames, and framing hypotheses that guided
+          engineering triage.
+        </li>
+        <li class="experience-item">
+          <strong>Translated real-world cases into reusable simulation scenarios</strong>,
+          enabling repeatable testing of perception, prediction, and planning behavior
+          across software releases.
+        </li>
+        <li class="experience-item">
+          <strong>Planned and executed structured test passes</strong> around targeted
+          behaviors while keeping safety, coverage, and schedule constraints in balance.
+        </li>
+        <li class="experience-item">
+          <strong>Contributed to process and documentation improvements</strong> by
+          proposing templates, clarifying reporting structures, and helping keep
+          knowledge organized and findable.
+        </li> 
+      </ul> -->
+    </div>
+  </div>
+</section> -->
+
+<!-- =========================
+     CONTACT
+     ========================= -->
+<section id="contact">
+  <div class="container">
+    <header class="section-header">
+      <div class="section-kicker">Contact</div>
+      <h2 class="section-title">Open to roles in triage, simulation, and AV QA</h2>
+      <p class="section-description">
+              </p>
+    </header>
+
+    <div class="contact-card">
+      <div class="contact-text">
+       
+        <p>
+          Feel free to reach out with a role, a project, or just to discuss how a
+          structured triage approach could support your roadmap.
+        </p>
+      </div>
+
+      <div class="contact-links" aria-label="Contact methods">
+        <div>
+          <div class="contact-link-label">Email</div>
+          <a
+            class="contact-link"
+            href="mailto:contact@aleksandarzivic.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="contact-link-icon">✉</span>
+            <span>contact@aleksandarzivic.com</span>
+          </a>
+        </div>
+
+        <div>
+          <div class="contact-link-label">LinkedIn</div>
+          <a
+            class="contact-link"
+            href="https://www.linkedin.com"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="contact-link-icon">in</span>
+            <span>View LinkedIn profile</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- =========================
+     RESUME REQUEST MODAL
+     ========================= -->
+<div class="resume-modal" id="resume-modal" aria-hidden="true" role="dialog" aria-modal="false">
+  <div class="resume-modal-backdrop" id="resume-modal-backdrop"></div>
+  <div class="resume-modal-content" role="document">
+    <button class="resume-modal-close" id="resume-modal-close" aria-label="Close resume form">×</button>
+    <h2>Request my resume</h2>
+    <p>Leave your details and I’ll reach you out soon with my resume.</p>
+
+    <form id="resume-form"
+  action="https://formspree.io/f/xvgervwn"
+  method="POST"
+>
+  <div class="resume-form-grid">
+    <div>
+      <label for="resume-name">Your name</label>
+      <input id="resume-name" name="name" type="text" required />
+    </div>
+
+    <div>
+      <label for="resume-org">Organization / team</label>
+      <input id="resume-org" name="org" type="text" />
+    </div>
+
+    <div>
+      <label for="resume-email">Work email</label>
+      <input id="resume-email" name="email" type="email" required />
+    </div>
+
+    <div>
+      <label for="resume-message">Anything you’d like to share (optional)</label>
+      <textarea id="resume-message" name="message" rows="3"></textarea>
+    </div>
+  </div>
+
+ <div class="resume-submit-row">
+  <button type="submit">Submit</button>
+</div>
+
+<p id="resume-status" class="resume-status" aria-live="polite"></p>
+</form>
+
+<p class="resume-modal-note">
+  Your details will only be used to share my resume and follow up about relevant opportunities.
+</p>
+
+  </div>
+</div>
+
+</main> <footer> <div class="container footer-inner"> <span>&copy; <span id="year">2025</span> Aleksandar Zivic. All rights reserved.</span> <span>NDA-safe</span> </div> </footer>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const modal = document.getElementById("resume-modal");
+  const openBtn = document.getElementById("resume-nav-btn");     
+  const heroBtn = document.getElementById("resume-hero-btn");    
+  const closeBtn = document.getElementById("resume-modal-close");
+  const backdrop = document.getElementById("resume-modal-backdrop");
+  const form = document.getElementById("resume-form");
+  const statusEl = document.getElementById("resume-status");
+
+  function resetStatus() {
+    if (!statusEl) return;
+    statusEl.textContent = "";
+    statusEl.classList.remove("resume-status--success", "resume-status--error");
+  }
+
+  function openModal() {
+    if (!modal) return;
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    resetStatus();
+  }
+
+  function closeModal() {
+    if (!modal) return;
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  if (openBtn) {
+    openBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      openModal();
+    });
+  }
+
+  if (heroBtn) {
+    heroBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+      openModal();
+    });
+  }
+
+  if (closeBtn) closeBtn.addEventListener("click", closeModal);
+  if (backdrop) backdrop.addEventListener("click", closeModal);
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && modal && modal.classList.contains("is-open")) {
+      closeModal();
+    }
+  });
+
+  // 🔹 AJAX submit to Formspree – stay on page, show thank you
+  if (form) {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault(); // ⬅︎ VERY IMPORTANT: stops redirect
+
+      resetStatus();
+      if (statusEl) {
+        statusEl.textContent = "Sending...";
+      }
+
+      fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { "Accept": "application/json" }
+      })
+        .then(function (response) {
+          if (response.ok) {
+            if (statusEl) {
+              statusEl.textContent = "Thanks! I’ll reach out with my resume soon.";
+              statusEl.classList.add("resume-status--success");
+            }
+            form.reset();
+            setTimeout(closeModal, 2000); // keep message visible ~2s
+          } else {
+            return response.json().then(function (data) {
+              throw new Error(data.error || "Form submission failed");
+            });
+          }
+        })
+        .catch(function () {
+          if (statusEl) {
+            statusEl.textContent =
+              "Something went wrong. Please try again or email me directly.";
+            statusEl.classList.add("resume-status--error");
+          }
+        });
+    });
+  }
+});
+</script>
+
+	<script>
+document.addEventListener("DOMContentLoaded", function () {
+  var slider = document.getElementById("visuals-slider");
+  if (!slider) return;
+
+  var radios = slider.querySelectorAll('input[name="visuals-slides"]');
+  var progress = document.getElementById("visuals-progress-inner");
+  var thumbsToggle = document.getElementById("visuals-thumbs-toggle");
+  var autoplayAttr = slider.getAttribute("data-autoplay-ms");
+  var autoplayMs = autoplayAttr ? parseInt(autoplayAttr, 10) : 6000;
+  var autoplayTimer = null;
+
+  if (!radios.length || !progress) return;
+
+  function getCheckedIndex() {
+    for (var i = 0; i < radios.length; i++) {
+      if (radios[i].checked) return i;
+    }
+    return 0;
+  }
+
+  function goToNextSlide() {
+    var currentIndex = getCheckedIndex();
+    var nextIndex = (currentIndex + 1) % radios.length;
+    radios[nextIndex].checked = true;
+  }
+
+  function restartProgress() {
+    // stop current animation
+    progress.classList.remove("is-animating");
+    // force reflow so animation can restart
+    void progress.offsetWidth;
+    // set duration based on autoplay
+    progress.style.animationDuration = autoplayMs + "ms";
+    // start animation again
+    progress.classList.add("is-animating");
+  }
+
+  function startAutoplay() {
+    if (autoplayTimer) {
+      clearTimeout(autoplayTimer);
+    }
+    autoplayTimer = setTimeout(function () {
+      goToNextSlide();
+      restartProgress();
+      startAutoplay();
+    }, autoplayMs);
+  }
+
+  // When user changes slide (arrows or thumbs), restart bar + timer
+  radios.forEach(function (radio) {
+    radio.addEventListener("change", function () {
+      restartProgress();
+      startAutoplay();
+    });
+  });
+
+  // Thumbnails show/hide toggle
+  if (thumbsToggle) {
+    thumbsToggle.addEventListener("click", function () {
+      slider.classList.toggle("thumbs-collapsed");
+    });
+  }
+
+  // Initial run
+  restartProgress();
+  startAutoplay();
+});
+</script>
+
+
+
+ </body> </html>
