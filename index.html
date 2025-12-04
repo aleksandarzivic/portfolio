@@ -1908,6 +1908,17 @@ The planner reacted conservatively, triggering a harsh brake before the track di
     font-size: 0.9rem;
   }
 }
+	@media (max-width: 360px) {
+  .eyebrow-phrase.bullets {
+    letter-spacing: 0.04em !important;
+    gap: 0.15rem !important;
+    font-size: 0.68rem !important;
+  }
+
+  .eyebrow-phrase.bullets span + span::before {
+    margin: 0 0.15rem !important;
+  }
+}
 
 
 	  
@@ -2272,6 +2283,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
  </body> </html>
+
 
 
 
